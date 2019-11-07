@@ -17,13 +17,17 @@ function Users(props) {
   
   const handleDelete = (e, id) => {
     e.preventDefault()
+    const user = users.find(user => user.id ===id)
+
+    if (window.confirm('Are you sure you want to delete user?'))
+    setUsers(users.filter(user => user.id !== id))
     api().delete(`/users/${id}`)
       .then(res => {
         console.log('User was deleted!')
-        setUsers(users.filter(user => user.id !== id))
       })
       .catch(err => {
         console.log(err, err.response)
+        setUsers([ ...users, user ])
       })
   }
 
